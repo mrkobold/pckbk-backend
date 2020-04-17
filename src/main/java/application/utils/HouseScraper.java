@@ -54,6 +54,4 @@ public class HouseScraper {
             return null;
         }
     }
-
-
 }
