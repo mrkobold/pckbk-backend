@@ -10,7 +10,7 @@ public final class Serializator {
 
     public static String serialize(Object o) {
         if (o == null) {
-            return "";
+            return "null";
         }
         if (o.getClass().isPrimitive() ||
                 o instanceof Byte ||
@@ -22,7 +22,7 @@ public final class Serializator {
                 o instanceof Double ||
                 o instanceof Boolean ||
                 o instanceof String) {
-            return o.toString();
+            return "\"" + o.toString() + "\"";
         }
         if (o instanceof Collection) {
             return serialize((Collection) o);
@@ -55,7 +55,7 @@ public final class Serializator {
                 serializedField = serialize(o1);
             } catch (IllegalAccessException ignore) {
             }
-            return "\"" + field.getName() + "\": " + "\"" + serializedField + "\"";
+            return "\"" + field.getName() + "\": " + serializedField;
         };
     }
 

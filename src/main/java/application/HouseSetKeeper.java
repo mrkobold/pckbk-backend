@@ -14,7 +14,7 @@ public class HouseSetKeeper {
     @Getter
     private final Set<House> houseSet = new HashSet<>();
 
-    private final FileWriter fw;
+    private final PrintWriter pw;
 
     public HouseSetKeeper() throws Exception {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -24,12 +24,14 @@ public class HouseSetKeeper {
         prop.load(resourceAsStream);
         String savedUrlFile = prop.getProperty("saved-urls");
 
-        this.fw = new FileWriter(savedUrlFile, true);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(Thread.currentThread().getContextClassLoader().getResource(savedUrlFile).getPath(), true));
+        pw = new PrintWriter(bw);
+
         loadHousesFromFile(savedUrlFile);
     }
 
-    private void loadHousesFromFile(String file) throws Exception {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+    private void loadHousesFromFile(String file) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(file)));
 
         new Thread(() -> {
             String line;
@@ -45,12 +47,12 @@ public class HouseSetKeeper {
         }).start();
     }
 
-    public void persistHouse(House h) throws IOException {
+    public void persistHouse(House h) {
         boolean isNew = houseSet.add(h);
         if (isNew) {
-            fw.append(h.getUrl());
-            fw.append("\n");
-            fw.close();
+            pw.append(h.getUrl());
+            pw.append("\n");
+            pw.flush();
         }
     }
 }

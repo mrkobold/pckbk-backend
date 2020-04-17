@@ -1,12 +1,14 @@
 package application.utils;
 
 import application.model.House;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class HouseScraper {
 
     public static House scrapeHouse(String houseUrl) throws Exception {
@@ -50,7 +52,7 @@ public class HouseScraper {
         try {
             return Integer.parseInt(priceText);
         } catch (Exception ex) {
-            System.out.println("Failed to parse price: " + priceText);
+            log.warn("Failed to parse price: {}" + priceText);
             return null;
         }
     }
