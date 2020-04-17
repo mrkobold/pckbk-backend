@@ -1,10 +1,10 @@
 package application.servlet;
 
-import application.HouseListProvider;
+import application.HouseSetKeeper;
 import application.model.House;
-import framework.Request;
-import framework.Servlet;
-import framework.annotations.KoboldPath;
+import server.Request;
+import server.Servlet;
+import server.annotations.KoboldPath;
 
 import java.util.Collection;
 
@@ -13,6 +13,6 @@ public class HouseListServlet extends Servlet {
 
     @Override
     public Collection<House> respond(Request request) {
-        return HouseListProvider.getHouseSet();
+        return HouseSetKeeper.getHouseSet();
     }
 }

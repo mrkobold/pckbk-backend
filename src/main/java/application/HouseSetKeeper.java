@@ -5,7 +5,7 @@ import application.model.House;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HouseListProvider {
+public class HouseSetKeeper {
 
     private static final Set<House> HOUSE_SET = new HashSet<>();
 

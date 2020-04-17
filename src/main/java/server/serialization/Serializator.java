@@ -1,4 +1,4 @@
-package framework.serialization;
+package server.serialization;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

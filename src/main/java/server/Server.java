@@ -1,6 +1,6 @@
-package framework;
+package server;
 
-import framework.annotations.KoboldPath;
+import server.annotations.KoboldPath;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;

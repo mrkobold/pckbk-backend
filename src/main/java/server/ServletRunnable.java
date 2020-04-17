@@ -1,6 +1,6 @@
-package framework;
+package server;
 
-import framework.serialization.Serializator;
+import server.serialization.Serializator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import static framework.Constants.HEADER;
+import static server.Constants.HEADER;
 
 @Slf4j
 public class ServletRunnable implements Runnable {

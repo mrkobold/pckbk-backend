@@ -1,11 +1,11 @@
 package application.servlet;
 
-import application.HouseListProvider;
+import application.HouseSetKeeper;
 import application.model.House;
 import application.utils.HouseScraper;
-import framework.Request;
-import framework.Servlet;
-import framework.annotations.KoboldPath;
+import server.Request;
+import server.Servlet;
+import server.annotations.KoboldPath;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class NewHouseServlet extends Servlet {
 
         saveHouseUrl(houseUrl);
 
-        HouseListProvider.addHouse(h);
+        HouseSetKeeper.addHouse(h);
         return "Successfully added new house";
     }
 

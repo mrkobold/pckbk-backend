@@ -1,4 +1,4 @@
-package framework;
+package server;
 
 public enum HttpMethod {
     GET,
