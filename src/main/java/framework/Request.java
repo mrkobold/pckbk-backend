@@ -4,26 +4,29 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Getter
 public class Request {
-
-    private final String method;
+    private final HttpMethod method;
     private final String uri;
     private final String protocol;
-    private Map<String, String> parameters = new HashMap<>();
+    private final Map<String, String> parameters = new HashMap<>();
 
     Request(String requestWholeText) {
         String[] requestHeader = requestWholeText.split("\n")[0].split(" ");
-        this.method = requestHeader[0];
+        this.method = HttpMethod.valueOf(requestHeader[0]);
         this.protocol = requestHeader[2];
 
-        if ("GET".equals(method)) {
-            uri = parseUri(requestHeader[1]);
-            parseUriAndParametersForGET(requestHeader[1]);
-        } else {
-            uri = "TEMPORARY";
+        switch (method) {
+            case GET:
+                uri = parseUri(requestHeader[1]);
+                parseUriAndParametersForGET(uri.length(), requestHeader[1]);
+                break;
+            case POST:
+                uri = requestHeader[1];
+                break;
+            default:
+                uri = "";
         }
     }
 
@@ -37,14 +40,14 @@ public class Request {
         return wholeUriText.substring(0, i);
     }
 
-    private void parseUriAndParametersForGET(String wholeUri) {
-        Optional<String> parametersStringOptional = getParametersStringFromUri(wholeUri);
-        parametersStringOptional.ifPresent(this::parseParameters);
+    private void parseUriAndParametersForGET(int offset, String wholeUri) {
+        String parametersString = wholeUri.substring(offset + 1);
+        parseParameters(parametersString);
     }
 
     private void parseParameters(String parametersString) {
         String[] parameters = parametersString.split("&");
-        for (String parameter: parameters) {
+        for (String parameter : parameters) {
             addParameter(parameter);
         }
     }
@@ -57,15 +60,5 @@ public class Request {
             }
         }
         parameters.put(parameterString.substring(0, i), parameterString.substring(i + 1));
-    }
-
-    private static Optional<String> getParametersStringFromUri(String uri) {
-        int i;
-        for (i = 0; i < uri.length(); i++) {
-            if (uri.charAt(i) == '?') {
-                break;
-            }
-        }
-        return i == uri.length() ? Optional.empty() : Optional.of(uri.substring(i + 1));
     }
 }

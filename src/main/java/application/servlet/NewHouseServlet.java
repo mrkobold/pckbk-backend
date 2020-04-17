@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @KoboldPath("/NewHouse")
-public class NewHouseService extends Servlet {
+public class NewHouseServlet extends Servlet {
 
     private static final String CONFIG = "config.properties";
 

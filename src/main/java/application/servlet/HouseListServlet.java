@@ -9,7 +9,7 @@ import framework.annotations.KoboldPath;
 import java.util.Collection;
 
 @KoboldPath("/HouseList")
-public class HouseListService extends Servlet {
+public class HouseListServlet extends Servlet {
 
     @Override
     public Collection<House> respond(Request request) {
